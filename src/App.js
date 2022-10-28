@@ -34,7 +34,7 @@ export const isBoardValid = (board) => {
   // possibly create util function to increase readability
   // check if it is possible to match in a row
   for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length - 1; j++) {
+    for (let j = 0; j < board[0].length - 1; j++) {
       if (board[i][j] === board[i][j+1]) {
         const leftPlusOne = isMatchingGem(board, i, j, i, j-2);
         const leftDiagonalUp = isMatchingGem(board, i, j, i-1, j-1);
@@ -51,7 +51,7 @@ export const isBoardValid = (board) => {
   // possibly create util function to increase readability
   // check if it is possible to match in a column
   for (let i = 0; i < board.length - 1; i++) {
-    for (let j = 0; j < board.length; j++) {
+    for (let j = 0; j < board[0].length; j++) {
       if (board[i][j] === board[i+1][j]) {
         const upPlusOne = isMatchingGem(board, i, j, i, j-2);
         const upDiagonalRight = isMatchingGem(board, i, j, i-1, j-1);
@@ -71,8 +71,9 @@ export const isBoardValid = (board) => {
 // this function is of O(n) time complexity, which may be okay for instantiation
 // but for validity checking throughout the game, we may want to implement a state tracker
 export const replaceTriplets = (board) => {
+  // check rows
   for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length - 1; j++) {
+    for (let j = 0; j < board[0].length - 2; j++) {
       if (board[i][j] === board[i][j+1] && board[i][j] === board[i][j+2]) {
         // replace first of the triplets
         // while also checking the gems immediately before and above it to make sure no new triplets pop up
@@ -90,9 +91,10 @@ export const replaceTriplets = (board) => {
     }
   }
 
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length - 1; j++) {
-      if (board[i][j] === board[i][j+1] && board[i][j] === board[i][j+2]) {
+  // check columns
+  for (let i = 0; i < board.length - 2; i++) {
+    for (let j = 0; j < board[i].length ; j++) {
+      if (board[i][j] === board[i+1][j] && board[i][j] === board[i+2][j]) {
         // replace first of the triplets
         // while also checking the gems immediately before and above it to make sure no new triplets pop up
         let randomGem;
