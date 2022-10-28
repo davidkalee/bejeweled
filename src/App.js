@@ -106,7 +106,7 @@ export const replaceTriplets = (board) => {
           randomGem = generateRandomGem(gemTypes);
         }
 
-        board[i][j+2] = randomGem
+        board[i][j] = randomGem
       }
     }
   }
